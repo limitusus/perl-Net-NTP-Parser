@@ -1,0 +1,15 @@
+Changes
+lib/Net/NTP/Parser.pm
+lib/Net/NTP/Parser/TimeStamp64Bit.pm
+LICENSE
+MANIFEST			This list of files
+MANIFEST.SKIP
+MYMETA.json
+MYMETA.yml
+README
+t/001_load.t
+t/002_load.t
+t/010_p1.t
+t/011_p2.t
+t/020_time.t
+Todo

@@ -1,0 +1,80 @@
+NAME
+    Net::NTP::Parser - Reads an NTP packet and inspects it
+
+SYNOPSIS
+      use Net::NTP::Parser;
+      # stringified 48 bytes NTP packet
+      my $packet = q{#\4\6\351\0\0\0\212\0\0\vG\n4\n\310\324\215~\361\324,}
+        . q{\261\177\324\215\1775\322xaR\324\215\1775\322\344:2\324\215\177v}
+        . q{\323\335\224\35};
+      my $ntp = Net::NTP::Parser->new($pack);
+      $ntp->dump;
+      # Leap Indicator
+      $ntp->get_LI;
+      # Version Number
+      $ntp->get_VN;
+      # Mode
+      $ntp->get_mode;
+      # Stratum
+      $ntp->get_stratum;
+      # Poll Interval (power of 2)
+      $ntp->get_poll;
+      # Precision (power of 2)
+      $ntp->get_precision;
+      # Root Delay
+      $ntp->get_rootdelay;
+      # Root dispersion
+      $ntp->get_rootdispersion;
+      # Reference Identifier
+      $ntp->get_referenceidentifier;
+      # Reference Timestamp
+      $ntp->get_referencetimestamp;
+      # Originate Timestamp
+      $ntp->get_originatetimestamp;
+      # Receive Timestamp
+      $ntp->get_receivetimestamp;
+      # Transmit Timestamp
+      $ntp->get_transmittimestamp;
+
+DESCRIPTION
+    This module reads a stringified packet of SNTP and give interfaces to
+    read it for human.
+
+    The input is intended to be from strace(1) command like:
+
+      strace -e trace=network -s 4096 ntpdate ntp1.jst.mfeed.ad.jp
+
+    will output the following:
+
+      sendto(4, "\343\0\4\372\0\1\0\0\0\1\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\324\220$\32j\222-\224", 48, 0, {sa_family=AF_INET, sin_port=htons(123), sin_addr=inet_addr("210.173.160.27")}, 16) = 48
+      recvfrom(4, "$\2\4\355\0\0\0\21\0\0\0027\322\255\240V\324\220#\330*!\303S\324\220$\32j\222-\224\324\220$\32e\224f\317\324\220$\32e\225\241\37", 1092, 0, {sa_family=AF_INET, sin_port=htons(123), sin_addr=inet_addr("210.173.160.27")}, [16]) = 48
+
+    The above packets are of RFC 2030 but is not human-readable. This module
+    receives a stringified packet like above "\343 ... \224" (48 bytes) and
+    provides an OO interface to see the values.
+
+USAGE
+    See SYNOPSIS.
+
+BUGS
+SUPPORT
+    Send email to limitusus [at] cpan [dot]. Pull request at github () will
+    be of course welcome.
+
+AUTHOR
+        limitusus
+        CPAN ID: LIMITUSUS
+        limitusus@cpan.org
+        https://github.com/limitusus/
+
+COPYRIGHT
+    This program is free software licensed under the...
+
+            The MIT License
+
+    The full text of the license can be found in the LICENSE file included
+    with this module.
+
+SEE ALSO
+    RFC 2030.
+
